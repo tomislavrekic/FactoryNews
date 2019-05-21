@@ -1,22 +1,41 @@
 package hr.tomislavrekic.factorynews;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemListModel implements ItemListContract.Model {
-    List<NewsItem> newsData;
+import static hr.tomislavrekic.factorynews.Constants.TAG;
 
+public class ItemListModel implements ItemListContract.Model {
+    private List<NewsArticleItem> responseData;
+    private List<NewsItem> newsData;
 
     @Override
     public void initData(){
+        responseData = new ArrayList<>();
         newsData = new ArrayList<>();
 
-        newsData.add(new NewsItem(null, "FIRST", "THIS IS FIRST"));
-        newsData.add(new NewsItem(null, "SEC", "THIS IS SEC"));
-        newsData.add(new NewsItem(null, "THRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHRHR" +
-                "HRHRHRHRHRHRHRHRHRHRHRHRHRHRHR", "THIS IS THR"));
-        newsData.add(new NewsItem(null, "FRT", "THIS IS FRT"));
-        newsData.add(new NewsItem(null, "FIF", "THIS IS FIF"));
+        NewsArticleService service = new NewsArticleService();
+        service.getNewsResponse(new NewsArticleResponseDelegate() {
+            @Override
+            public void processFinished(NewsArticleResponse response) {
+                try {
+                    Log.d(TAG, "onResponse: " + response.getArticles().get(0).getTitle());
+                    responseData = response.getArticles();
+
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        for(int i=0;i<responseData.size();i++){
+            newsData.get(i).setNewsBody(responseData.get(i).getDescription());
+            newsData.get(i).setTitle(responseData.get(i).getTitle());
+            newsData.get(i).setThumbnail(null);
+        }
 
     }
 
