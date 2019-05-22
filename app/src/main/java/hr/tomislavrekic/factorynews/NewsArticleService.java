@@ -15,7 +15,7 @@ import static hr.tomislavrekic.factorynews.Constants.TAG;
 public class NewsArticleService {
 
 
-    public NewsArticleResponse getNewsResponse(NewsArticleResponseDelegate delegate){
+    public NewsArticleResponse getNewsResponse(Callback<NewsArticleResponse> callback){
         //NewsArticleResponse newsArticleResponse = null;
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -32,18 +32,7 @@ public class NewsArticleService {
         NewsArticleAPI newsArticleAPI = retrofit.create(NewsArticleAPI.class);
         Call<NewsArticleResponse> callAsync = newsArticleAPI.getNewsArticle();
 
-        callAsync.enqueue(new CallbackDelegate<NewsArticleResponse>(delegate) {
-            @Override
-            public void onResponse(Call<NewsArticleResponse> call, Response<NewsArticleResponse> response) {
-                NewsArticleResponse newsArticleResponse = response.body();
-                mDelegate.processFinished(newsArticleResponse);
-            }
-
-            @Override
-            public void onFailure(Call<NewsArticleResponse> call, Throwable t) {
-                System.out.println(t);
-            }
-        });
+        callAsync.enqueue(callback);
 
         return null;
         //return newsArticleResponse;

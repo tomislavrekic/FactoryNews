@@ -8,14 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder> {
 
     private OnClickListener mListener;
-    private ItemListContract.View mItemListView;
+    private List<NewsItem> mData;
 
-    public ItemListAdapter(ItemListContract.View itemListView, OnClickListener listener) {
+    public ItemListAdapter(OnClickListener listener) {
         this.mListener = listener;
-        mItemListView = itemListView;
+    }
+
+    public void setData(List<NewsItem> data){
+        mData=data;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -30,14 +37,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemLi
 
     @Override
     public void onBindViewHolder(@NonNull ItemListViewHolder itemListViewHolder, int i) {
-        NewsItem tempItem = mItemListView.getData().get(i);
+        NewsItem tempItem = mData.get(i);
         itemListViewHolder.mImageView.setImageBitmap(tempItem.getThumbnail());
         itemListViewHolder.mTextView.setText(tempItem.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return mItemListView.getDataCount();
+        return mData == null ? 0 : mData.size();
     }
 
     public class ItemListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

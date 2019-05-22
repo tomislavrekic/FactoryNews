@@ -2,6 +2,10 @@ package hr.tomislavrekic.factorynews;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ItemListPresenter implements ItemListContract.Presenter {
 
     private ItemListContract.View view;
@@ -10,12 +14,23 @@ public class ItemListPresenter implements ItemListContract.Presenter {
     public ItemListPresenter(ItemListContract.View view) {
         this.view = view;
         model = new ItemListModel();
-        model.initData();
+
+        initData();
     }
 
     @Override
     public void initData(){
-        model.initData();
+        model.initData(new Callback<NewsArticleResponse>() {
+            @Override
+            public void onResponse(Call<NewsArticleResponse> call, Response<NewsArticleResponse> response) {
+                view.updateAdapter(model.convertData(response.body().getArticles()));
+            }
+
+            @Override
+            public void onFailure(Call<NewsArticleResponse> call, Throwable t) {
+                System.out.println(t);
+            }
+        });
     }
 
     @Override

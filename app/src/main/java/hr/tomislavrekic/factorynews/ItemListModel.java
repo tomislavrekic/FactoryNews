@@ -5,39 +5,34 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static hr.tomislavrekic.factorynews.Constants.TAG;
 
 public class ItemListModel implements ItemListContract.Model {
-    private List<NewsArticleItem> responseData;
-    private List<NewsItem> newsData;
+    //private List<NewsArticleItem> responseData;
+    //private List<NewsItem> newsData;
 
     @Override
-    public void initData(){
-        responseData = new ArrayList<>();
-        newsData = new ArrayList<>();
+    public void initData(Callback<NewsArticleResponse> callback){
 
         NewsArticleService service = new NewsArticleService();
-        service.getNewsResponse(new NewsArticleResponseDelegate() {
-            @Override
-            public void processFinished(NewsArticleResponse response) {
-                try {
-                    Log.d(TAG, "onResponse: " + response.getArticles().get(0).getTitle());
-                    responseData = response.getArticles();
-
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        for(int i=0;i<responseData.size();i++){
-            newsData.get(i).setNewsBody(responseData.get(i).getDescription());
-            newsData.get(i).setTitle(responseData.get(i).getTitle());
-            newsData.get(i).setThumbnail(null);
-        }
+        service.getNewsResponse(callback);
 
     }
+
+    @Override
+    public List<NewsItem> convertData(List<NewsArticleItem> responseData) {
+        List<NewsItem> newsData = new ArrayList<>();
+
+        for(int i=0;i<responseData.size();i++){
+           newsData.add(new NewsItem(null, responseData.get(i).getTitle(),responseData.get(i).getDescription()));
+        }
+        return newsData;
+    }
+
 
     @Override
     public void updateData(){
@@ -46,11 +41,11 @@ public class ItemListModel implements ItemListContract.Model {
 
     @Override
     public List<NewsItem> getData() {
-        return newsData;
+        return null;
     }
 
     @Override
     public int getDataCount() {
-        return newsData.size();
+        return 0;
     }
 }

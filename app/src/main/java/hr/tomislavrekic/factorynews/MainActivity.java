@@ -17,11 +17,13 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
     private ItemListContract.Presenter presenter;
     private RecyclerView recyclerView;
 
+    //TODO: last thing you did was add the data back to the adapter, presenter needs to send data to adapter
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adapter = new ItemListAdapter(this ,new OnClickListener() {
+        adapter = new ItemListAdapter(new OnClickListener() {
             @Override
             public void onClick(int pos) {
                 Toast.makeText(MainActivity.this, "POS" + pos, Toast.LENGTH_SHORT).show();
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
         Log.d(Constants.TAG, "onCreate: " + presenter.getDataCount());
     }
 
+
+
     @Override
     public List<NewsItem> getData() {
         return presenter.getData();
@@ -49,5 +53,10 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
     @Override
     public int getDataCount() {
         return presenter.getDataCount();
+    }
+
+    @Override
+    public void updateAdapter(List<NewsItem> data) {
+        adapter.setData(data);
     }
 }
