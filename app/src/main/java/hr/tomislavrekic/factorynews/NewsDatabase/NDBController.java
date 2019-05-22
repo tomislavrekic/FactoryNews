@@ -14,7 +14,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import hr.tomislavrekic.factorynews.Constants;
 
 import static hr.tomislavrekic.factorynews.Constants.TAG;
 
@@ -67,7 +66,7 @@ public class NDBController {
 
         String selection = NDBContract.NDBEntry._ID + " LIKE ?";
         String[] selectionArgs = {search};
-        String sortOrder = NDBContract.NDBEntry.COLUMN_NAME_DATE + " DESC";
+        String sortOrder = NDBContract.NDBEntry._ID + " ASC";
 
         Cursor cursor = db.query(
                 NDBContract.NDBEntry.TABLE_NAME,
@@ -89,9 +88,13 @@ public class NDBController {
             String url = cursor.getString(cursor.getColumnIndexOrThrow(NDBContract.NDBEntry.COLUMN_NAME_URL));
             String urlImg = cursor.getString(cursor.getColumnIndexOrThrow(NDBContract.NDBEntry.COLUMN_NAME_IMGURL));
             byte[] imgByte = cursor.getBlob(cursor.getColumnIndexOrThrow(NDBContract.NDBEntry.COLUMN_NAME_IMG));
-            Date date = Date.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(NDBContract.NDBEntry.COLUMN_NAME_DATE)));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow(NDBContract.NDBEntry.COLUMN_NAME_DATE));
 
-            Bitmap img = BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+
+            Bitmap img = null;
+            if(imgByte != null){
+                img = BitmapFactory.decodeByteArray(imgByte, 0, imgByte.length);
+            }
 
             NDBSingleUnit tempUnit = new NDBSingleUnit(itemId, author, title, desc, url, urlImg, date, img);
 
@@ -132,12 +135,14 @@ public class NDBController {
         values.put(NDBContract.NDBEntry.COLUMN_NAME_URL, input.getUrl());
         values.put(NDBContract.NDBEntry.COLUMN_NAME_IMGURL, input.getUrlImg());
         values.put(NDBContract.NDBEntry.COLUMN_NAME_IMG, getBitmapAsByteArray(input.getImage()));
-        values.put(NDBContract.NDBEntry.COLUMN_NAME_DATE, input.getDate().toString());
+        values.put(NDBContract.NDBEntry.COLUMN_NAME_DATE, input.getDate());
 
         return values;
     }
 
     private static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+        if(bitmap == null) return null;
+
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
         return outputStream.toByteArray();

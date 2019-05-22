@@ -10,7 +10,7 @@ public final class NDBSQLCommands {
                     NDBContract.NDBEntry.COLUMN_NAME_DESC + " VARCHAR(512)," +
                     NDBContract.NDBEntry.COLUMN_NAME_URL + " VARCHAR(100), " +
                     NDBContract.NDBEntry.COLUMN_NAME_IMGURL + " VARCHAR(100), " +
-                    NDBContract.NDBEntry.COLUMN_NAME_DATE + " DATE, " +
+                    NDBContract.NDBEntry.COLUMN_NAME_DATE + " VARCHAR(20), " +
                     NDBContract.NDBEntry.COLUMN_NAME_IMG + " BLOB)";
 
     public static final String SQL_DELETE_ENTRIES =

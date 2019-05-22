@@ -11,10 +11,10 @@ public class NDBSingleUnit {
     private String desc;
     private String url;
     private String urlImg;
-    private Date date;
+    private String date;
     private Bitmap image;
 
-    public NDBSingleUnit(long id, String author, String title, String desc, String url, String urlImg, Date date, Bitmap image) {
+    public NDBSingleUnit(long id, String author, String title, String desc, String url, String urlImg, String date, Bitmap image) {
         this.id = id;
         this.author = author;
         this.title = title;
@@ -73,11 +73,11 @@ public class NDBSingleUnit {
         this.urlImg = urlImg;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

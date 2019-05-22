@@ -25,5 +25,7 @@ public interface ItemListContract {
         void initData(Callback<NewsArticleResponse> callback);
         void updateData();
         List<NewsItem> convertData(List<NewsArticleItem> responseData);
+        void storeToDB(List<NewsItem> input);
+        List<NewsItem> fetchFromDB();
     }
 }

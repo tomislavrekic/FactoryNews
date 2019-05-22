@@ -1,5 +1,6 @@
 package hr.tomislavrekic.factorynews;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,17 +12,23 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ItemListContract.View{
 
+    private static Context context;
 
 
     private ItemListAdapter adapter;
     private ItemListContract.Presenter presenter;
     private RecyclerView recyclerView;
 
-    //TODO: last thing you did was add the data back to the adapter, presenter needs to send data to adapter
+    public static Context getContext(){
+        return context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context = getApplicationContext();
+
         setContentView(R.layout.activity_main);
         adapter = new ItemListAdapter(new OnClickListener() {
             @Override

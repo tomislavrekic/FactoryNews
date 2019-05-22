@@ -1,6 +1,11 @@
 package hr.tomislavrekic.factorynews.NewsDatabase;
 
 import android.content.Context;
+import android.util.Log;
+
+import java.util.List;
+
+import static hr.tomislavrekic.factorynews.Constants.TAG;
 
 public class NDBUpdateManager {
     private NDBController controller;
@@ -11,13 +16,18 @@ public class NDBUpdateManager {
 
     public void updateRow(NDBSingleUnit input){
 
-        if(controller.readDb(String.valueOf(input.getId())).get(0) == null){
+        if(controller.readDb(String.valueOf(input.getId())).size() == 0){
             controller.insertRow(input);
+            Log.d(TAG, "updateRow: insert");
         }
         else{
+            //controller.insertRow(input);
             controller.updateRow(input);
+            Log.d(TAG, "updateRow: update");
         }
+    }
 
-
+    public List<NDBSingleUnit> readAll(){
+        return controller.readAll();
     }
 }
