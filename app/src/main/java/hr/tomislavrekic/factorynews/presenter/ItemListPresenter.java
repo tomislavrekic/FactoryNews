@@ -61,7 +61,7 @@ public class ItemListPresenter implements ItemListContract.Presenter {
             @Override
             public void onFailure(Call<NewsArticleResponse> call, Throwable t) {
 
-
+                view.showAlert();
                 System.out.println(t);
             }
         });

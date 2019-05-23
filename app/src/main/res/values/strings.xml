@@ -6,5 +6,9 @@
         <item>Faking the news</item>
     </string-array>
     <string name="loading">Loading...</string>
+    <string name="network_error_title">Error</string>
+    <string name="network_error_body">Something is wrong</string>
+    <string name="network_error_ok_button">it\'s not ok</string>
+    <string name="network_error_ok_toast">Sorry :(</string>
 
 </resources>

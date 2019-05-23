@@ -29,7 +29,7 @@ public class NewsArticleService {
 
 
     public void getNewsResponse(Callback<NewsArticleResponse> callback){
-        mCallAsync.enqueue(callback);
+        mCallAsync.clone().enqueue(callback);
     }
 
 }

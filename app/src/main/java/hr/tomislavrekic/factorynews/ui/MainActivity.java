@@ -1,7 +1,9 @@
 package hr.tomislavrekic.factorynews.ui;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private Resources res;
+
     public static Context getContext(){
         return context;
     }
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
         context = getApplicationContext();
 
         setContentView(R.layout.activity_main);
+
+        res = getResources();
 
         mSwipeRefreshLayout = findViewById(R.id.srlRefresh);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -56,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
 
         presenter = new ItemListPresenter(this);
         presenter.updateData();
-
-
 
     }
 
@@ -85,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
 
     @Override
     public void showLoading(){
-        Resources res = getResources();
         String[] loadingQuotes = res.getStringArray(R.array.loading_quotes);
         int rand = new Random().nextInt(loadingQuotes.length);
 
@@ -93,11 +96,28 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
         nDialog.setMessage(res.getString(R.string.loading));
         nDialog.setTitle(loadingQuotes[rand]);
         nDialog.setIndeterminate(false);
-        nDialog.setCancelable(true);
+        nDialog.setCancelable(false);
         nDialog.show();
     }
     @Override
     public void hideLoading(){
         nDialog.hide();
+    }
+
+    @Override
+    public void showAlert(){
+
+        new AlertDialog.Builder(this)
+                .setTitle(res.getString(R.string.network_error_title))
+                .setMessage(res.getString(R.string.network_error_body))
+                .setPositiveButton(res.getString(R.string.network_error_ok_button), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        hideLoading();
+                        Toast.makeText(MainActivity.this, res.getString(R.string.network_error_ok_toast), Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

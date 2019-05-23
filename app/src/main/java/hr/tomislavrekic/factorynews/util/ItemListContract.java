@@ -13,6 +13,7 @@ public interface ItemListContract {
         void updateAdapter(List<NewsItem> data);
         void showLoading();
         void hideLoading();
+        void showAlert();
 
 
     }
