@@ -1,5 +1,6 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.model.networking;
 
+import hr.tomislavrekic.factorynews.util.Constants;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;

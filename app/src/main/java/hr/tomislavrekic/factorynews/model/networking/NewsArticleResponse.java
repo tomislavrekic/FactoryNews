@@ -1,4 +1,4 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.model.networking;
 
 import java.util.List;
 

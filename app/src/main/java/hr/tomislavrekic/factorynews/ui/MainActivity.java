@@ -1,19 +1,25 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Resources;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements ItemListContract.View{
+import hr.tomislavrekic.factorynews.util.ItemListContract;
+import hr.tomislavrekic.factorynews.presenter.ItemListPresenter;
+import hr.tomislavrekic.factorynews.model.NewsItem;
+import hr.tomislavrekic.factorynews.util.OnClickListener;
+import hr.tomislavrekic.factorynews.R;
+
+public class MainActivity extends AppCompatActivity implements ItemListContract.View {
 
     private static Context context;
 
@@ -22,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
     private ItemListContract.Presenter presenter;
     private RecyclerView recyclerView;
     private ProgressDialog nDialog;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public static Context getContext(){
         return context;
@@ -34,6 +42,26 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
         context = getApplicationContext();
 
         setContentView(R.layout.activity_main);
+
+        mSwipeRefreshLayout = findViewById(R.id.srlRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.updateData();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
+        initRecycleView();
+
+        presenter = new ItemListPresenter(this);
+        presenter.updateData();
+
+
+
+    }
+
+    private void initRecycleView() {
         adapter = new ItemListAdapter(new OnClickListener() {
             @Override
             public void onClick(int pos) {
@@ -48,12 +76,8 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(adapter);
-
-        presenter = new ItemListPresenter(this);
-        presenter.updateData();
-
-
     }
+
     @Override
     public void updateAdapter(List<NewsItem> data) {
         adapter.setData(data);
@@ -61,11 +85,12 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
 
     @Override
     public void showLoading(){
-        String[] loadingQuotes = getResources().getStringArray(R.array.loading_quotes);
+        Resources res = getResources();
+        String[] loadingQuotes = res.getStringArray(R.array.loading_quotes);
         int rand = new Random().nextInt(loadingQuotes.length);
 
         nDialog = new ProgressDialog(this);
-        nDialog.setMessage("Loading..");
+        nDialog.setMessage(res.getString(R.string.loading));
         nDialog.setTitle(loadingQuotes[rand]);
         nDialog.setIndeterminate(false);
         nDialog.setCancelable(true);

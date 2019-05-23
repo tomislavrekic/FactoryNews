@@ -1,4 +1,4 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.ui;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import hr.tomislavrekic.factorynews.model.NewsItem;
+import hr.tomislavrekic.factorynews.util.OnClickListener;
+import hr.tomislavrekic.factorynews.R;
 
 
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder> {

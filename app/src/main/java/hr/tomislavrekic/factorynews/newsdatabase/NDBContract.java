@@ -1,4 +1,4 @@
-package hr.tomislavrekic.factorynews.NewsDatabase;
+package hr.tomislavrekic.factorynews.newsdatabase;
 
 import android.provider.BaseColumns;
 

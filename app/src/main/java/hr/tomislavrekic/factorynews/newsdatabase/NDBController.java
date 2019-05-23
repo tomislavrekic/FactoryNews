@@ -1,4 +1,4 @@
-package hr.tomislavrekic.factorynews.NewsDatabase;
+package hr.tomislavrekic.factorynews.newsdatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,12 +10,11 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import static hr.tomislavrekic.factorynews.Constants.TAG;
+import static hr.tomislavrekic.factorynews.util.Constants.TAG;
 
 public class NDBController {
     private SQLiteDatabase db;

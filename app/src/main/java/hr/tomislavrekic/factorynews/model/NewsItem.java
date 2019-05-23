@@ -1,8 +1,6 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.model;
 
 import android.graphics.Bitmap;
-
-import java.sql.Date;
 
 public class NewsItem {
     private long id;

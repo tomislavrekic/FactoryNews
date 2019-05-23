@@ -1,10 +1,11 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.model.tasks;
 
 import android.os.AsyncTask;
 
 import java.util.List;
 
-import hr.tomislavrekic.factorynews.NewsDatabase.NDBAdapter;
+import hr.tomislavrekic.factorynews.model.NewsItem;
+import hr.tomislavrekic.factorynews.newsdatabase.NDBAdapter;
 
 public class StoreToDBTask extends AsyncTask<List<NewsItem>, Void, Void> {
     private NDBAdapter mAdapter;

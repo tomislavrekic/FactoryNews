@@ -1,8 +1,6 @@
-package hr.tomislavrekic.factorynews.NewsDatabase;
+package hr.tomislavrekic.factorynews.newsdatabase;
 
 import android.graphics.Bitmap;
-
-import java.sql.Date;
 
 public class NDBSingleUnit {
     private long id;

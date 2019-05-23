@@ -1,4 +1,4 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.model.tasks;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +9,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import hr.tomislavrekic.factorynews.model.NewsItemDelegate;
+import hr.tomislavrekic.factorynews.model.NewsItem;
+import hr.tomislavrekic.factorynews.model.networking.NewsArticleItem;
 
 
 public class ConvertDataTask extends AsyncTask<List<NewsArticleItem>,Void, List<NewsItem>> {

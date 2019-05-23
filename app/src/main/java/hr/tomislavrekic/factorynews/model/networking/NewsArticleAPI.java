@@ -1,5 +1,6 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.model.networking;
 
+import hr.tomislavrekic.factorynews.util.Constants;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

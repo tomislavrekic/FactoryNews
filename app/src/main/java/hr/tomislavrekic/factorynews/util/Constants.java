@@ -1,4 +1,4 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.util;
 
 public final class Constants {
     public static final String TAG = "debugTag";

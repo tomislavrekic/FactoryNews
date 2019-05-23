@@ -1,12 +1,18 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.model;
 
 
 import java.util.List;
 
-import hr.tomislavrekic.factorynews.NewsDatabase.NDBAdapter;
+import hr.tomislavrekic.factorynews.model.tasks.ConvertDataTask;
+import hr.tomislavrekic.factorynews.model.tasks.FetchFromDBTask;
+import hr.tomislavrekic.factorynews.util.ItemListContract;
+import hr.tomislavrekic.factorynews.model.networking.NewsArticleItem;
+import hr.tomislavrekic.factorynews.model.networking.NewsArticleResponse;
+import hr.tomislavrekic.factorynews.model.networking.NewsArticleService;
+import hr.tomislavrekic.factorynews.model.tasks.StoreToDBTask;
+import hr.tomislavrekic.factorynews.newsdatabase.NDBAdapter;
+import hr.tomislavrekic.factorynews.ui.MainActivity;
 import retrofit2.Callback;
-
-import static hr.tomislavrekic.factorynews.Constants.TAG;
 
 
 public class ItemListModel implements ItemListContract.Model {
@@ -34,8 +40,8 @@ public class ItemListModel implements ItemListContract.Model {
     }
 
     @Override
-    public List<NewsItem> fetchFromDB() {
-        return mAdapter.readDB();
+    public void fetchFromDB(NewsItemDelegate delegate) {
+        new FetchFromDBTask(delegate, mAdapter).execute();
     }
 
 

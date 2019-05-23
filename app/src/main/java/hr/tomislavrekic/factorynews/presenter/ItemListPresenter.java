@@ -1,24 +1,29 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.presenter;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
+import hr.tomislavrekic.factorynews.util.Constants;
+import hr.tomislavrekic.factorynews.util.ItemListContract;
+import hr.tomislavrekic.factorynews.model.ItemListModel;
+import hr.tomislavrekic.factorynews.model.networking.NewsArticleResponse;
+import hr.tomislavrekic.factorynews.model.NewsItem;
+import hr.tomislavrekic.factorynews.model.NewsItemDelegate;
+import hr.tomislavrekic.factorynews.ui.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static hr.tomislavrekic.factorynews.Constants.TAG;
+import static hr.tomislavrekic.factorynews.util.Constants.TAG;
 
 public class ItemListPresenter implements ItemListContract.Presenter {
 
@@ -34,7 +39,13 @@ public class ItemListPresenter implements ItemListContract.Presenter {
 
     @Override
     public void updateData(){
-        view.updateAdapter(model.fetchFromDB());
+        model.fetchFromDB(new NewsItemDelegate() {
+            @Override
+            public void processFinished(List<NewsItem> response) {
+                view.updateAdapter(response);
+            }
+        });
+
         if(!checkDataExpired(SystemClock.elapsedRealtime())) return;
 
         view.showLoading();

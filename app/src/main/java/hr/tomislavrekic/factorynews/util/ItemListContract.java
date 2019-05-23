@@ -1,7 +1,11 @@
-package hr.tomislavrekic.factorynews;
+package hr.tomislavrekic.factorynews.util;
 
 import java.util.List;
 
+import hr.tomislavrekic.factorynews.model.NewsItem;
+import hr.tomislavrekic.factorynews.model.NewsItemDelegate;
+import hr.tomislavrekic.factorynews.model.networking.NewsArticleItem;
+import hr.tomislavrekic.factorynews.model.networking.NewsArticleResponse;
 import retrofit2.Callback;
 
 public interface ItemListContract {
@@ -21,6 +25,6 @@ public interface ItemListContract {
         void updateData(Callback<NewsArticleResponse> callback);
         void convertData(List<NewsArticleItem> responseData, NewsItemDelegate delegate);
         void storeToDB(List<NewsItem> input);
-        List<NewsItem> fetchFromDB();
+        void fetchFromDB(NewsItemDelegate delegate);
     }
 }

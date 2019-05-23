@@ -1,16 +1,11 @@
-package hr.tomislavrekic.factorynews.NewsDatabase;
+package hr.tomislavrekic.factorynews.newsdatabase;
 
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import hr.tomislavrekic.factorynews.Constants;
-import hr.tomislavrekic.factorynews.NewsItem;
-
-import static hr.tomislavrekic.factorynews.Constants.TAG;
+import hr.tomislavrekic.factorynews.model.NewsItem;
 
 public class NDBAdapter {
     private NDBUpdateManager updateManager;
