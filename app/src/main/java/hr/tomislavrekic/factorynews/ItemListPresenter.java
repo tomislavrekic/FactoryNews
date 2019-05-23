@@ -30,17 +30,14 @@ public class ItemListPresenter implements ItemListContract.Presenter {
     public ItemListPresenter(ItemListContract.View view) {
         this.view = view;
         model = new ItemListModel();
-
-        if(checkDataExpired(SystemClock.elapsedRealtime())){
-            updateData();
-        }
-        else{
-            view.updateAdapter(model.fetchFromDB());
-        }
     }
 
     @Override
     public void updateData(){
+        view.updateAdapter(model.fetchFromDB());
+        if(!checkDataExpired(SystemClock.elapsedRealtime())) return;
+
+        view.showLoading();
         model.updateData(new Callback<NewsArticleResponse>() {
             @Override
             public void onResponse(Call<NewsArticleResponse> call, Response<NewsArticleResponse> response) {
@@ -51,6 +48,7 @@ public class ItemListPresenter implements ItemListContract.Presenter {
                         new NewsItemDelegate() {
                             @Override
                             public void processFinished(List<NewsItem> response) {
+                                view.hideLoading();
                                 view.updateAdapter(response);
 
                                 model.storeToDB(response);
@@ -62,9 +60,7 @@ public class ItemListPresenter implements ItemListContract.Presenter {
 
             @Override
             public void onFailure(Call<NewsArticleResponse> call, Throwable t) {
-                List<NewsItem> data = model.fetchFromDB();
 
-                view.updateAdapter(data);
 
                 System.out.println(t);
             }
@@ -74,24 +70,24 @@ public class ItemListPresenter implements ItemListContract.Presenter {
     private void saveTimestamp(long timestamp){
         OutputStreamWriter outputStreamWriter = null;
         try {
-            outputStreamWriter = new OutputStreamWriter(MainActivity.getContext().openFileOutput("timestamp.txt", Context.MODE_PRIVATE));
+            outputStreamWriter = new OutputStreamWriter(MainActivity.getContext().openFileOutput(Constants.TIMESTAMP_FILENAME, Context.MODE_PRIVATE));
             outputStreamWriter.write(String.valueOf(timestamp));
             Log.d(TAG, "saveTimestamp: " + timestamp);
             outputStreamWriter.close();
         }
         catch (IOException e){
-            Log.e(TAG, "saveTimestamp: failed" + e.toString());
+            e.printStackTrace();
         }
     }
 
     private boolean checkDataExpired(long timestamp){
         long oldTimestamp = 0;
 
-        File file = new File(MainActivity.getContext().getFilesDir(), "timestamp.txt");
+        File file = new File(MainActivity.getContext().getFilesDir(), Constants.TIMESTAMP_FILENAME);
         if(file.exists() && (file.length() != 0)) {
             InputStream inputStream;
             try {
-                inputStream = MainActivity.getContext().openFileInput("timestamp.txt");
+                inputStream = MainActivity.getContext().openFileInput(Constants.TIMESTAMP_FILENAME);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
                 StringBuilder builder = new StringBuilder();

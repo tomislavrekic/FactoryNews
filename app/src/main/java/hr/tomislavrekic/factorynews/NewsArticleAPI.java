@@ -4,6 +4,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface NewsArticleAPI {
-    @GET(Constants.NewsArticlePath)
+    @GET(Constants.NEWS_ARTICLE_PATH)
     Call<NewsArticleResponse> getNewsArticle();
 }

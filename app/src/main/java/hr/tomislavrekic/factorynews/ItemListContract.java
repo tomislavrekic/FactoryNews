@@ -7,6 +7,8 @@ import retrofit2.Callback;
 public interface ItemListContract {
     interface View{
         void updateAdapter(List<NewsItem> data);
+        void showLoading();
+        void hideLoading();
 
 
     }

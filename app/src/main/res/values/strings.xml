@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Factory News</string>
+    <string-array name="loading_quotes">
+        <item>Listening to rumors</item>
+        <item>Discovering the secrets</item>
+        <item>Faking the news</item>
+    </string-array>
+
 </resources>

@@ -1,16 +1,11 @@
 package hr.tomislavrekic.factorynews;
 
-import android.util.Log;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static hr.tomislavrekic.factorynews.Constants.TAG;
 
 public class NewsArticleService {
     Call<NewsArticleResponse> mCallAsync;
@@ -22,7 +17,7 @@ public class NewsArticleService {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder().addInterceptor(interceptor);
 
         Retrofit retrofit = new Retrofit.Builder().
-                baseUrl(Constants.NewsArticleBase).
+                baseUrl(Constants.NEWS_ARTICLE_BASE).
                 addConverterFactory(GsonConverterFactory.create()).
                 client(httpClient.build()).
                 build();
