@@ -1,5 +1,6 @@
 package hr.tomislavrekic.factorynews;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.List;
@@ -30,27 +31,22 @@ public class ItemListPresenter implements ItemListContract.Presenter {
 
                 if(!response.isSuccessful()) return;
 
-                List<NewsItem> temp = model.convertData(response.body().getArticles());
+                model.convertData(response.body().getArticles(),
+                        new NewsItemDelegate() {
+                            @Override
+                            public void processFinished(List<NewsItem> response) {
+                                view.updateAdapter(response);
 
-                //view.updateAdapter(temp);
-
-                model.storeToDB(temp);
-
-                List<NewsItem> data = model.fetchFromDB();
-
-                Log.d(TAG, "onResponse: " + data.size());
-
-                view.updateAdapter(data);
+                                model.storeToDB(response);
+                            }
+                        });
             }
 
             @Override
             public void onFailure(Call<NewsArticleResponse> call, Throwable t) {
                 List<NewsItem> data = model.fetchFromDB();
 
-                Log.d(TAG, "onResponse: " + data.size());
-
                 view.updateAdapter(data);
-
 
                 System.out.println(t);
             }

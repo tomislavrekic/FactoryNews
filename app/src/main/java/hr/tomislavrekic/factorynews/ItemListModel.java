@@ -1,7 +1,13 @@
 package hr.tomislavrekic.factorynews;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.spec.ECField;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,23 +36,13 @@ public class ItemListModel implements ItemListContract.Model {
     }
 
     @Override
-    public List<NewsItem> convertData(List<NewsArticleItem> responseData) {
-        List<NewsItem> newsData = new ArrayList<>();
-
-        for(int i=0;i<responseData.size();i++){
-            NewsArticleItem temp = responseData.get(i);
-
-            newsData.add(new NewsItem(i, temp.getAuthor(), temp.getTitle(), temp.getDescription(),
-                    temp.getUrl(), temp.getUrlToImage(), null, temp.getPublishedAt()));
-
-            Log.d(TAG, "PASSED" + responseData.size());
-        }
-        return newsData;
+    public void convertData(List<NewsArticleItem> responseData, NewsItemDelegate delegate) {
+        new ConvertDataTask(delegate).execute(responseData);
     }
 
     @Override
     public void storeToDB(List<NewsItem> input) {
-        mAdapter.updateDB(input);
+        new StoreToDBTask(mAdapter).execute(input);
 
 
     }
@@ -71,4 +67,6 @@ public class ItemListModel implements ItemListContract.Model {
     public int getDataCount() {
         return 0;
     }
+
+
 }

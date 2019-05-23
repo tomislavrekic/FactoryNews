@@ -24,7 +24,7 @@ public interface ItemListContract {
         int getDataCount();
         void initData(Callback<NewsArticleResponse> callback);
         void updateData();
-        List<NewsItem> convertData(List<NewsArticleItem> responseData);
+        void convertData(List<NewsArticleItem> responseData, NewsItemDelegate delegate);
         void storeToDB(List<NewsItem> input);
         List<NewsItem> fetchFromDB();
     }
