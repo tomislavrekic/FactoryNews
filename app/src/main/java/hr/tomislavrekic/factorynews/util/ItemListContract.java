@@ -26,5 +26,7 @@ public interface ItemListContract {
         void convertData(List<NewsArticleItem> responseData, NewsItemDelegate delegate);
         void storeToDB(List<NewsItem> input);
         void fetchFromDB(NewsItemDelegate delegate);
+        boolean checkDataExpired(long currentTime);
+        void saveTimestamp(long currentTime);
     }
 }
