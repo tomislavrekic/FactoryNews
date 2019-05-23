@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/ivItemImage"
-        android:layout_width="@dimen/_80sdp"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_80sdp"
         android:src="@mipmap/ic_launcher_round"/>
 
@@ -17,6 +17,7 @@
         android:layout_height="@dimen/_80ssp"
         android:layout_toRightOf="@id/ivItemImage"
         tools:text="Local man stares at the sun"
-        android:layout_margin="@dimen/_5sdp"
-        android:textSize="@dimen/_20ssp"/>
+        android:layout_margin="@dimen/_10sdp"
+        android:textSize="@dimen/_14ssp"
+        android:textStyle="bold"/>
 </RelativeLayout>

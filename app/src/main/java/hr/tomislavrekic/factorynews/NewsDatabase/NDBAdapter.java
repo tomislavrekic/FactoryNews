@@ -26,9 +26,6 @@ public class NDBAdapter {
                     item.getNewsBody(), item.getUrl(), item.getUrlImg(), item.getDate() , item.getThumbnail());
 
             updateManager.updateRow(temp);
-
-
-            Log.d(TAG, "PASSEDAD" + temp.getTitle());
         }
     }
 
@@ -40,9 +37,6 @@ public class NDBAdapter {
             out.add(new NewsItem(item.getId(), item.getAuthor(), item.getTitle(), item.getDesc(),
                     item.getUrl(), item.getUrlImg(), item.getImage(), item.getDate()));
         }
-
-        Log.d(TAG, "readDB: " + response.size());
-
         return out;
     }
 }

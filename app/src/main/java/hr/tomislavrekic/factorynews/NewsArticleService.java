@@ -13,11 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static hr.tomislavrekic.factorynews.Constants.TAG;
 
 public class NewsArticleService {
+    Call<NewsArticleResponse> mCallAsync;
 
-
-    public NewsArticleResponse getNewsResponse(Callback<NewsArticleResponse> callback){
-        //NewsArticleResponse newsArticleResponse = null;
-
+    public NewsArticleService(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -30,12 +28,12 @@ public class NewsArticleService {
                 build();
 
         NewsArticleAPI newsArticleAPI = retrofit.create(NewsArticleAPI.class);
-        Call<NewsArticleResponse> callAsync = newsArticleAPI.getNewsArticle();
+        mCallAsync = newsArticleAPI.getNewsArticle();
+    }
 
-        callAsync.enqueue(callback);
 
-        return null;
-        //return newsArticleResponse;
+    public void getNewsResponse(Callback<NewsArticleResponse> callback){
+        mCallAsync.enqueue(callback);
     }
 
 }

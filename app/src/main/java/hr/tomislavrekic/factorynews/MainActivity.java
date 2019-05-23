@@ -46,22 +46,7 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
         recyclerView.setAdapter(adapter);
 
         presenter = new ItemListPresenter(this);
-
-        Log.d(Constants.TAG, "onCreate: " + presenter.getDataCount());
     }
-
-
-
-    @Override
-    public List<NewsItem> getData() {
-        return presenter.getData();
-    }
-
-    @Override
-    public int getDataCount() {
-        return presenter.getDataCount();
-    }
-
     @Override
     public void updateAdapter(List<NewsItem> data) {
         adapter.setData(data);
