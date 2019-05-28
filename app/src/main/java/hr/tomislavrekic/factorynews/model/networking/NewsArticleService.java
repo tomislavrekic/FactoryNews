@@ -1,5 +1,7 @@
 package hr.tomislavrekic.factorynews.model.networking;
 
+import java.util.concurrent.TimeUnit;
+
 import hr.tomislavrekic.factorynews.util.Constants;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -15,7 +17,8 @@ public class NewsArticleService {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder().addInterceptor(interceptor);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor);
 
         Retrofit retrofit = new Retrofit.Builder().
                 baseUrl(Constants.NEWS_ARTICLE_BASE).

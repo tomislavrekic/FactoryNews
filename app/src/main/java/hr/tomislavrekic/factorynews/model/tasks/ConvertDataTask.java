@@ -13,6 +13,7 @@ import java.util.List;
 import hr.tomislavrekic.factorynews.model.NewsItemDelegate;
 import hr.tomislavrekic.factorynews.model.NewsItem;
 import hr.tomislavrekic.factorynews.model.networking.NewsArticleItem;
+import hr.tomislavrekic.factorynews.util.Constants;
 
 
 public class ConvertDataTask extends AsyncTask<List<NewsArticleItem>,Void, List<NewsItem>> {
@@ -33,8 +34,21 @@ public class ConvertDataTask extends AsyncTask<List<NewsArticleItem>,Void, List<
 
             Bitmap bmp = getbmpfromURL(temp.getUrlToImage());
 
+            Bitmap scaledBmp = null;
+
+            if(bmp != null){
+                float scale = Constants.IMAGE_SCALE_FACTOR;
+                int scaledWidth = (int)(bmp.getWidth()*scale);
+                int scaledHeight = (int)(bmp.getHeight()*scale);
+                scaledBmp = Bitmap.createScaledBitmap(bmp, scaledWidth, scaledHeight, true);
+            }
+
+
+
+
+
             newsData.add(new NewsItem(i, temp.getAuthor(), temp.getTitle(), temp.getDescription(),
-                    temp.getUrl(), temp.getUrlToImage(), bmp, temp.getPublishedAt()));
+                    temp.getUrl(), temp.getUrlToImage(), scaledBmp, temp.getPublishedAt()));
 
         }
         return newsData;

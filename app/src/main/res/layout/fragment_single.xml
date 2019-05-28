@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <ImageView
+            android:id="@+id/ivSingleImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:src="@mipmap/ic_launcher_round"/>
+
+
+        <TextView
+            android:id="@+id/tvSingleTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="EXAMPLE"
+            android:textStyle="bold"
+            android:textSize="@dimen/_20ssp"
+            android:layout_below="@+id/ivSingleImage"
+            android:layout_margin="@dimen/_10sdp"/>
+
+        <TextView
+            android:id="@+id/tvSingleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="EXAMPLE"
+            android:textSize="@dimen/_15ssp"
+            android:layout_below="@id/tvSingleTitle"
+            android:layout_margin="@dimen/_10sdp"/>
+
+        <TextView
+            android:id="@+id/tvSingleDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="EXAMPLE"
+            android:layout_below="@id/tvSingleText"
+            android:textAlignment="textEnd"
+            android:layout_margin="@dimen/_20sdp"
+            />
+    </RelativeLayout>
+
+</ScrollView>
+

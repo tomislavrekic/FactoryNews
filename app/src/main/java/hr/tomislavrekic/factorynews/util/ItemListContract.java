@@ -19,6 +19,8 @@ public interface ItemListContract {
     }
     interface Presenter{
         void updateData();
+        void addView(ItemListContract.View view);
+        void removeView();
 
 
     }

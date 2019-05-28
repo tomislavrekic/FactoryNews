@@ -30,7 +30,7 @@ import static hr.tomislavrekic.factorynews.util.Constants.TAG;
 public class ItemListModel implements ItemListContract.Model {
     private NDBAdapter mAdapter;
     private NewsArticleService mService;
-    private static long refreshInterval = 5 * 60 * 1000;
+    private static long refreshInterval = Constants.REFRESH_INTERVAL;
 
     public ItemListModel(){
         mAdapter = new NDBAdapter(MainActivity.getContext());

@@ -143,7 +143,7 @@ public class NDBController {
         if(bitmap == null) return null;
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream);
         return outputStream.toByteArray();
     }
 }
