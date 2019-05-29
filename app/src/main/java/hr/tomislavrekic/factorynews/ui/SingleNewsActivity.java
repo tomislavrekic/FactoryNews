@@ -40,8 +40,6 @@ public class SingleNewsActivity extends AppCompatActivity implements ItemListCon
 
         res = getResources();
 
-        //showLoading();
-
         presenter = ItemListPresenter.getInstance();
         adapter = new SingleNewsAdapter(getSupportFragmentManager());
         adapter.setView(this);
@@ -57,6 +55,9 @@ public class SingleNewsActivity extends AppCompatActivity implements ItemListCon
         presenter.updateData();
     }
 
+    /*
+        Initialize viewPager once the data arrives from presenter
+     */
     @Override
     public void updateAdapter(List<NewsItem> data) {
         adapter.setmData(data);
@@ -84,8 +85,6 @@ public class SingleNewsActivity extends AppCompatActivity implements ItemListCon
             }
         });
         viewPager.setCurrentItem(temp);
-
-        //hideLoading();
     }
 
     @Override

@@ -18,7 +18,7 @@ import hr.tomislavrekic.factorynews.util.Constants;
 
 public class ConvertDataTask extends AsyncTask<List<NewsArticleItem>,Void, List<NewsItem>> {
 
-    NewsItemDelegate mDelegate;
+    private NewsItemDelegate mDelegate;
 
     public ConvertDataTask(NewsItemDelegate delegate){
         mDelegate = delegate;
@@ -32,7 +32,7 @@ public class ConvertDataTask extends AsyncTask<List<NewsArticleItem>,Void, List<
         for(int i=0;i<responseData.size();i++){
             NewsArticleItem temp = responseData.get(i);
 
-            Bitmap bmp = getbmpfromURL(temp.getUrlToImage());
+            Bitmap bmp = getBmpFromURL(temp.getUrlToImage());
 
             Bitmap scaledBmp = null;
 
@@ -42,10 +42,6 @@ public class ConvertDataTask extends AsyncTask<List<NewsArticleItem>,Void, List<
                 int scaledHeight = (int)(bmp.getHeight()*scale);
                 scaledBmp = Bitmap.createScaledBitmap(bmp, scaledWidth, scaledHeight, true);
             }
-
-
-
-
 
             newsData.add(new NewsItem(i, temp.getAuthor(), temp.getTitle(), temp.getDescription(),
                     temp.getUrl(), temp.getUrlToImage(), scaledBmp, temp.getPublishedAt()));
@@ -59,15 +55,14 @@ public class ConvertDataTask extends AsyncTask<List<NewsArticleItem>,Void, List<
         mDelegate.processFinished(newsItems);
     }
 
-    private Bitmap getbmpfromURL(String surl){
+    private Bitmap getBmpFromURL(String sUrl){
         try {
-            URL url = new URL(surl);
-            HttpURLConnection urlcon = (HttpURLConnection) url.openConnection();
-            urlcon.setDoInput(true);
-            urlcon.connect();
-            InputStream in = urlcon.getInputStream();
-            Bitmap mIcon = BitmapFactory.decodeStream(in);
-            return  mIcon;
+            URL url = new URL(sUrl);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoInput(true);
+            urlConnection.connect();
+            InputStream in = urlConnection.getInputStream();
+            return  BitmapFactory.decodeStream(in);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

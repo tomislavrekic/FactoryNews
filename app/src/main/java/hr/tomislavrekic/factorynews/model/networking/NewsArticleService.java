@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsArticleService {
-    Call<NewsArticleResponse> mCallAsync;
+    private Call<NewsArticleResponse> mCallAsync;
 
     public NewsArticleService(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

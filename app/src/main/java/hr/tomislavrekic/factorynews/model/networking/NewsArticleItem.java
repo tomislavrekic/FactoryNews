@@ -7,22 +7,22 @@ public class NewsArticleItem {
 
     @SerializedName("author")
     @Expose
-    public String author;
+    private String author;
     @SerializedName("title")
     @Expose
-    public String title;
+    private String title;
     @SerializedName("description")
     @Expose
-    public String description;
+    private String description;
     @SerializedName("url")
     @Expose
-    public String url;
+    private String url;
     @SerializedName("urlToImage")
     @Expose
-    public String urlToImage;
+    private String urlToImage;
     @SerializedName("publishedAt")
     @Expose
-    public String publishedAt;
+    private String publishedAt;
 
 
     public String getAuthor() {

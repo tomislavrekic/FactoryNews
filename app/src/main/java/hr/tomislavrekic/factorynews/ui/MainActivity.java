@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
 
     private ItemListAdapter adapter;
     private ItemListContract.Presenter presenter;
+
     private RecyclerView recyclerView;
     private ProgressDialog nDialog;
 
@@ -65,12 +65,16 @@ public class MainActivity extends AppCompatActivity implements ItemListContract.
 
         initRecycleView();
 
-        intent = new Intent(this, SingleNewsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        initIntents();
 
 
         presenter = ItemListPresenter.getInstance();
 
+    }
+
+    private void initIntents() {
+        intent = new Intent(this, SingleNewsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
     }
 
     @Override

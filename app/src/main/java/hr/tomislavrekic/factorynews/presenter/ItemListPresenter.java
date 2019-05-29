@@ -3,8 +3,6 @@ package hr.tomislavrekic.factorynews.presenter;
 import android.os.SystemClock;
 import android.util.Log;
 
-
-import java.util.Hashtable;
 import java.util.List;
 
 import hr.tomislavrekic.factorynews.util.Constants;
@@ -21,7 +19,6 @@ import static hr.tomislavrekic.factorynews.util.Constants.TAG;
 
 public class ItemListPresenter implements ItemListContract.Presenter {
     private ItemListContract.Model model;
-    private Hashtable<String, ItemListContract.View> views;
     private ItemListContract.View mView;
 
     private static ItemListContract.Presenter instance;
@@ -41,14 +38,15 @@ public class ItemListPresenter implements ItemListContract.Presenter {
     @Override
     public void removeView() {
         mView = null;
-
     }
 
     private ItemListPresenter() {
-        views = new Hashtable<>();
         model = new ItemListModel();
     }
 
+    /*
+        Give data to the views.
+     */
     @Override
     public void updateData(){
 
@@ -56,7 +54,7 @@ public class ItemListPresenter implements ItemListContract.Presenter {
 
 
         if(!model.checkDataExpired(SystemClock.elapsedRealtime())) {
-            fetchFromDB();
+            uploadFromDB();
         }
         else{
             model.updateData(new Callback<NewsArticleResponse>() {
@@ -83,7 +81,7 @@ public class ItemListPresenter implements ItemListContract.Presenter {
                 @Override
                 public void onFailure(Call<NewsArticleResponse> call, Throwable t) {
                     mView.showAlert();
-                    fetchFromDB();
+                    uploadFromDB();
                     System.out.println(t);
                 }
             });
@@ -92,7 +90,7 @@ public class ItemListPresenter implements ItemListContract.Presenter {
 
     }
 
-    private void fetchFromDB(){
+    private void uploadFromDB(){
         model.fetchFromDB(new NewsItemDelegate() {
             @Override
             public void processFinished(List<NewsItem> response) {

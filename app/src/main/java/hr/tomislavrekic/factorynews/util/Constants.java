@@ -11,6 +11,5 @@ public final class Constants {
     public static final String F_DATE_KEY = "FDateKey";
     public static final float IMAGE_SCALE_FACTOR = 0.5f;
     public static final String SINGLE_NEWS_POSITION = "SingleNewsPosition";
-    public static final String[] VIEW_KEYS = {"ItemListKey", "SingleKey"};
     public static final int REFRESH_INTERVAL = 5 * 60 * 1000;
 }

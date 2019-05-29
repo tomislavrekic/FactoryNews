@@ -14,6 +14,10 @@ public class NDBUpdateManager {
         controller = new NDBController(context);
     }
 
+
+    /*
+        checks if there is data in the database and overwrites it if there is
+    */
     public void updateRow(NDBSingleUnit input){
 
         if(controller.readDb(String.valueOf(input.getId())).size() == 0){
@@ -21,7 +25,6 @@ public class NDBUpdateManager {
             Log.d(TAG, "updateRow: insert");
         }
         else{
-            //controller.insertRow(input);
             controller.updateRow(input);
             Log.d(TAG, "updateRow: update");
         }
